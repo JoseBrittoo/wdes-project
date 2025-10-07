@@ -10,12 +10,12 @@ import RegisterPage from "./modules/auth/pages/register-page/RegisterPage";
 const routes = [
   {
     path: "/",
-    element: <LoginPage />, 
+    element: <LoginPage />,
   },
   {
     path: "/register",
     element: <RegisterPage />,
-  }
+  },
 ];
 
 const router = createBrowserRouter(routes);
