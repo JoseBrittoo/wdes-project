@@ -1,7 +1,7 @@
 import { useState } from "react";
 import InputField from "./InputField";
 import Button from "../../../components/Button";
-import { cpfFormatter, cpfDeformatter } from "../../../components/CPFFormatter";
+import { cpfFormatter, cpfDeformatter } from "../../../components/CPFFormatter"; // Já importando a função para formatar e deformatar
 import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
@@ -9,6 +9,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [cpfError, setCpfError] = useState(false);
   const navigate = useNavigate();
+  const [profile, setProfile] = useState("");
 
   const handleCpfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const formattedCpf = cpfFormatter(event.target.value);
@@ -29,13 +30,21 @@ export default function LoginForm() {
       return;
     }
 
-    console.log("Login realizado com sucesso!");
+    if (profile === "professor") {
+      navigate("/dashboard-teachers");
+    } else if (profile === "estudante") {
+      navigate("/dashboard-students");
+    } else {
+      console.error("Perfil inválido");
+    }
   };
 
   const isValidCPF = (cpf: string) => {
     cpf = cpf.replace(/\D/g, "");
     if (cpf.length !== 11) return false;
+
     if (/^(\d)\1{10}$/.test(cpf)) return false;
+
     let sum = 0;
     for (let i = 0; i < 9; i++) {
       sum += parseInt(cpf.charAt(i)) * (10 - i);
@@ -81,6 +90,29 @@ export default function LoginForm() {
           onChange={handlePasswordChange}
           placeholder="Digite sua senha"
         />
+
+        <div>
+          <label
+            htmlFor="profile"
+            className="block text-sm font-semibold text-gray-700 mb-2 text-left"
+          >
+            Perfil *
+          </label>
+          <select
+            id="profile"
+            name="profile"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+            value={profile}
+            onChange={(e) => setProfile(e.target.value)}
+            required
+          >
+            <option value="" disabled>
+              Selecione o perfil
+            </option>
+            <option value="professor">Professor</option>
+            <option value="estudante">Estudante</option>
+          </select>
+        </div>
 
         <Button type="submit">Entrar</Button>
       </form>
