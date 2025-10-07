@@ -1,8 +1,17 @@
+import Header from "../../../components/Header";
+
 export default function DashboardStudents() {
+  const user = { name: "João Silva" };
+  const profileType = "professor";
+
+  const handleLogout = () => {
+    console.log("Logout");
+  };
+
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Dashboard de Estudantes</h1>
-      <p>Bem-vindo ao dashboard de estudantes!</p>
+    <div>
+      <Header user={user} profileType={profileType} onLogout={handleLogout} />
+      {/* O conteúdo da página vai aqui */}
     </div>
   );
 }
