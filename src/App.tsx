@@ -5,7 +5,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 //pages imports
 import LoginPage from "./modules/auth/pages/login-page/LoginPage";
 import RegisterPage from "./modules/auth/pages/register-page/RegisterPage";
-import DashboardStudents from "./modules/dashboard-studants/pages/Dashboard";
+import DashboardStudents from "./modules/dashboards/pages/DashboardStudants";
 //
 
 const routes = [

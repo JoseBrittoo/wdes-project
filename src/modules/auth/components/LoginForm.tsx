@@ -1,19 +1,17 @@
 import { useState } from "react";
 import InputField from "./InputField";
 import Button from "../../../components/Button";
-import { cpfFormatter, cpfDeformatter } from "../../../components/CPFFormatter"; // Já importando a função para formatar e deformatar
 import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
-  const [cpf, setCpf] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cpfError, setCpfError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const navigate = useNavigate();
   const [profile, setProfile] = useState("");
 
-  const handleCpfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const formattedCpf = cpfFormatter(event.target.value);
-    setCpf(formattedCpf);
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,10 +21,9 @@ export default function LoginForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const unformattedCpf = cpfDeformatter(cpf);
-
-    if (!isValidCPF(unformattedCpf)) {
-      setCpfError(true);
+    // Validação do email (simples)
+    if (!isValidEmail(email)) {
+      setEmailError(true);
       return;
     }
 
@@ -39,29 +36,10 @@ export default function LoginForm() {
     }
   };
 
-  const isValidCPF = (cpf: string) => {
-    cpf = cpf.replace(/\D/g, "");
-    if (cpf.length !== 11) return false;
-
-    if (/^(\d)\1{10}$/.test(cpf)) return false;
-
-    let sum = 0;
-    for (let i = 0; i < 9; i++) {
-      sum += parseInt(cpf.charAt(i)) * (10 - i);
-    }
-    let remainder = 11 - (sum % 11);
-    if (remainder === 10 || remainder === 11) remainder = 0;
-    if (remainder !== parseInt(cpf.charAt(9))) return false;
-
-    sum = 0;
-    for (let i = 0; i < 10; i++) {
-      sum += parseInt(cpf.charAt(i)) * (11 - i);
-    }
-    remainder = 11 - (sum % 11);
-    if (remainder === 10 || remainder === 11) remainder = 0;
-    if (remainder !== parseInt(cpf.charAt(10))) return false;
-
-    return true;
+  const isValidEmail = (email: string) => {
+    // Validação simples de email
+    const re = /^[a-zA-Z0-9._%+-]+@uea\.edu\.br$/;
+    return re.test(String(email).toLowerCase());
   };
 
   const handleRegister = () => {
@@ -72,18 +50,18 @@ export default function LoginForm() {
     <>
       <form onSubmit={handleSubmit} className="space-y-6">
         <InputField
-          label="CPF *"
-          type="text"
-          id="cpf"
-          value={cpf}
-          onChange={handleCpfChange}
-          placeholder="000.000.000-00"
-          errorMessage="CPF inválido. Use o formato: 000.000.000-00"
-          isError={cpfError}
+          label="Email Institucional"
+          type="email"
+          id="email"
+          value={email}
+          onChange={handleEmailChange}
+          placeholder="exemplo@instituição.edu.br"
+          errorMessage="Email inválido. Use o formato: exemplo@instituição.edu.br"
+          isError={emailError}
         />
 
         <InputField
-          label="Senha *"
+          label="Senha"
           type="password"
           id="password"
           value={password}
@@ -96,7 +74,7 @@ export default function LoginForm() {
             htmlFor="profile"
             className="block text-sm font-semibold text-gray-700 mb-2 text-left"
           >
-            Perfil *
+            Perfil
           </label>
           <select
             id="profile"
@@ -111,6 +89,7 @@ export default function LoginForm() {
             </option>
             <option value="professor">Professor</option>
             <option value="estudante">Estudante</option>
+            <option value="admin">Técnico Administrativo</option>
           </select>
         </div>
 
