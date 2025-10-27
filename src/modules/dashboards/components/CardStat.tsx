@@ -14,7 +14,7 @@ type CardStatProps = {
 const CardStat: React.FC<CardStatProps> = ({ title, value, icon: Icon, iconColor, bgColor, subtitle }) => {
     return (
         <Card>
-            <CardContent>"
+            <CardContent>
                 <div className="flex items-start justify-between">
                     <div>
                         <p className="text-sm text-muted-foreground mb-1">{title}</p>
