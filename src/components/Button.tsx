@@ -3,6 +3,7 @@ import React from "react";
 type ButtonProps = {
     type?: "button" | "submit" | "reset";
     children: React.ReactNode;
+    disabled?: boolean;
 };
 
 export default function Button({ type = "button", children }: ButtonProps) {

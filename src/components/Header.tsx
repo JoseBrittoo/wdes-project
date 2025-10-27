@@ -1,25 +1,64 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "../../src/lib/supabase";
 
 interface HeaderProps {
-  user: { name: string };
-  profileType: string;
-  onLogout: () => void;
+  onLogout?: () => void;
 }
 
-export default function Header({ user, profileType }: HeaderProps) {
+export default function Header({ onLogout }: HeaderProps) {
+  const [userName, setUserName] = useState<string | null>(null);
+  const [profileType, setProfileType] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState("Dashboard");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        const { data: profileData, error } = await supabase
+          .from("profiles")
+          .select("name, profile")
+          .eq("id", user.id)
+          .single();
+
+        if (!error && profileData) {
+          setUserName(profileData.name);
+          setProfileType(profileData.profile);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   const getNavOptions = () => {
-    if (profileType === "aluno") {
-      return ["Dashboard", "Grade", "Projetos"];
+    if (profileType === "estudante") {
+      return [
+        "Dashboard",
+        "Grade",
+        "Projetos",
+        "Eventos",
+        "Professores",
+        "Assistente",
+      ];
     }
     if (profileType === "professor") {
       return ["Dashboard", "Grade", "Projetos", "Recomendações IA"];
     }
+    if (profileType === "admin") {
+      return ["Dashboard", "Gerenciar Turmas", "Relatórios"];
+    }
     return ["Dashboard"];
   };
 
-  const [activeTab, setActiveTab] = useState("Dashboard");
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    if (onLogout) onLogout();
+  };
 
   return (
     <div className="w-full bg-white">
@@ -34,13 +73,23 @@ export default function Header({ user, profileType }: HeaderProps) {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-sm text-gray-600">Bem-vindo, {user.name}</span>
-          <div className="w-9 h-9 bg-green-700 text-white rounded-full flex items-center justify-center text-sm font-semibold">
-            {user.name
-              .split(" ")
-              .map((n) => n[0])
-              .join("")}
-          </div>
+          <span className="text-sm text-gray-600">
+            {userName ? `Bem-vindo, ${userName}` : "Carregando..."}
+          </span>
+          {userName && (
+            <div className="w-9 h-9 bg-green-700 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+              {userName
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
+            </div>
+          )}
+          <button
+            onClick={handleLogout}
+            className="ml-2 text-sm text-red-600 hover:underline"
+          >
+            Sair
+          </button>
         </div>
       </div>
 

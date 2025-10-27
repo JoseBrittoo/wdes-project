@@ -45,10 +45,11 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
       newErrors.email = "Email institucional inválido.";
       valid = false;
     }
-    if (!matricula || matricula.length !== 10) {
+    if (profile !== "admin" && (!matricula || matricula.length !== 10)) {
       newErrors.matricula = "Matrícula deve ter 10 dígitos.";
       valid = false;
     }
+
     if (!course) {
       newErrors.course = "Selecione um curso.";
       valid = false;
@@ -79,6 +80,7 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
         isPcD,
         deficiencia,
         password,
+        profile,
       });
     }
   };
@@ -192,28 +194,28 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
         )}
       </div>
       <div>
-          <label
-            htmlFor="profile"
-            className="block text-sm font-semibold text-gray-700 mb-2 text-left"
-          >
-            Perfil
-          </label>
-          <select
-            id="profile"
-            name="profile"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-            value={profile}
-            onChange={(e) => setProfile(e.target.value)}
-            required
-          >
-            <option value="" disabled>
-              Selecione o perfil
-            </option>
-            <option value="professor">Professor</option>
-            <option value="estudante">Estudante</option>
-            <option value="admin">Técnico Administrativo</option>
-          </select>
-        </div>  
+        <label
+          htmlFor="profile"
+          className="block text-sm font-semibold text-gray-700 mb-2 text-left"
+        >
+          Perfil
+        </label>
+        <select
+          id="profile"
+          name="profile"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+          value={profile}
+          onChange={(e) => setProfile(e.target.value)}
+          required
+        >
+          <option value="" disabled>
+            Selecione o perfil
+          </option>
+          <option value="professor">Professor</option>
+          <option value="estudante">Estudante</option>
+          <option value="admin">Técnico Administrativo</option>
+        </select>
+      </div>
 
       <InputField
         label="Senha"

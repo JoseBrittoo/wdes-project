@@ -2,44 +2,68 @@ import { useState } from "react";
 import InputField from "./InputField";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../../../lib/supabase";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [profile, setProfile] = useState("");
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setEmailError(false);
+    setLoading(true);
 
-    // Validação do email (simples)
-    if (!isValidEmail(email)) {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      const user = data.user;
+
+      if (!user) {
+        throw new Error("Usuário não encontrado.");
+      }
+
+      const { data: profileData, error: profileError } = await supabase
+        .from("profiles")
+        .select("profile")
+        .eq("id", user.id)
+        .single();
+
+      if (profileError) {
+        throw profileError;
+      }
+
+      const userProfile = profileData?.profile;
+
+      switch (userProfile) {
+        case "professor":
+          navigate("/dashboard-teachers");
+          break;
+        case "estudante":
+          navigate("/dashboard-students");
+          break;
+        case "admin":
+          navigate("/dashboard-admin");
+          break;
+        default:
+          alert("Perfil desconhecido.");
+      }
+    } catch (error: any) {
+      console.error("Erro no login:", error.message);
+      alert("Falha no login: " + error.message);
       setEmailError(true);
-      return;
+    } finally {
+      setLoading(false);
     }
-
-    if (profile === "professor") {
-      navigate("/dashboard-teachers");
-    } else if (profile === "estudante") {
-      navigate("/dashboard-students");
-    } else {
-      console.error("Perfil inválido");
-    }
-  };
-
-  const isValidEmail = (email: string) => {
-    // Validação simples de email
-    const re = /^[a-zA-Z0-9._%+-]+@uea\.edu\.br$/;
-    return re.test(String(email).toLowerCase());
   };
 
   const handleRegister = () => {
@@ -54,7 +78,7 @@ export default function LoginForm() {
           type="email"
           id="email"
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="exemplo@instituição.edu.br"
           errorMessage="Email inválido. Use o formato: exemplo@instituição.edu.br"
           isError={emailError}
@@ -65,35 +89,13 @@ export default function LoginForm() {
           type="password"
           id="password"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Digite sua senha"
         />
 
-        <div>
-          <label
-            htmlFor="profile"
-            className="block text-sm font-semibold text-gray-700 mb-2 text-left"
-          >
-            Perfil
-          </label>
-          <select
-            id="profile"
-            name="profile"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-            value={profile}
-            onChange={(e) => setProfile(e.target.value)}
-            required
-          >
-            <option value="" disabled>
-              Selecione o perfil
-            </option>
-            <option value="professor">Professor</option>
-            <option value="estudante">Estudante</option>
-            <option value="admin">Técnico Administrativo</option>
-          </select>
-        </div>
-
-        <Button type="submit">Entrar</Button>
+        <Button type="submit" disabled={loading}>
+          {loading ? "Entrando..." : "Entrar"}
+        </Button>
       </form>
 
       <p className="mt-4 text-center">
