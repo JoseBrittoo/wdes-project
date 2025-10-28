@@ -27,7 +27,7 @@ export default function GradeCurricularPage() {
         // Buscar curso do usuário (ajuste o nome da tabela e campos conforme seu schema)
         const { data: userData } = await supabase
           .from("profiles")
-          .select("course_id, courses(id, name)")
+          .select("course_id, courses(id, name, coordinator)")
           .eq("id", user.id)
           .single();
 
@@ -35,7 +35,11 @@ export default function GradeCurricularPage() {
           const courseData = Array.isArray(userData.courses)
             ? userData.courses[0]
             : userData.courses;
-          setCourse(courseData);
+          setCourse({
+            id: courseData.id,
+            name: courseData.name,
+            coordinator: courseData.coordinator,
+          });
 
           // Buscar disciplinas do curso
           const subjectsData = await getCourseSubjects(courseData.id);
@@ -64,17 +68,16 @@ export default function GradeCurricularPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <div className="mb-8"></div>
+    <div className="min-h-screen bg-slate-50">
+      <div className="container mx-auto px-6 py-8">
         <div className="flex items-center gap-3 mb-4">
           <GraduationCap className="w-8 h-8 text-primary" />
-          <h1 className="text-4xl font-bold">Grade Curricular</h1>
+          <h1 className="text-3xl font-bold text-foreground">Grade Curricular</h1>
         </div>
-        <p className="text-muted-foreground text-lg">
+        <p className="text-muted-foreground text-lg mb-4">
           Disciplinas do curso: {course.name}
         </p>
-      </div>
+      
 
       {subjects.length > 0 ? (
         <CurriculumGrid
@@ -82,6 +85,7 @@ export default function GradeCurricularPage() {
             id: course.id,
             name: course.name,
             subjects: subjects,
+            coordinator: course.coordinator,
           }}
         />
       ) : (
@@ -89,6 +93,7 @@ export default function GradeCurricularPage() {
           Nenhuma disciplina encontrada para este curso.
         </p>
       )}
+      </div>
     </div>
   );
 }

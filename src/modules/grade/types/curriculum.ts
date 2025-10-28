@@ -2,6 +2,7 @@ export interface Course {
   id: number;
   name: string;
   subjects?: Subject[];
+  coordinator: string; 
 }
 
 export interface Subject {
