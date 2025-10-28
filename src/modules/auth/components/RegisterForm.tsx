@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputField from "./InputField";
-import Button from "../../../components/Button";
+import { Button } from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 
 type RegisterFormProps = {
