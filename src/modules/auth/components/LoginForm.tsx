@@ -14,6 +14,14 @@ export default function LoginForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setEmailError(false);
+
+    // Validate email and password before submitting
+    if (!email || !password) {
+      setEmailError(true);
+      alert("Preencha o email e a senha.");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -46,10 +54,10 @@ export default function LoginForm() {
 
       switch (userProfile) {
         case "professor":
-          navigate("/dashboard-teachers");
+          navigate("/dashboard-professor");
           break;
         case "estudante":
-          navigate("/dashboard-students");
+          navigate("/dashboard-estudante");
           break;
         case "admin":
           navigate("/dashboard-admin");

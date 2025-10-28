@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "../../src/lib/supabase";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   onLogout?: () => void;
@@ -38,21 +39,25 @@ export default function Header({ onLogout }: HeaderProps) {
   const getNavOptions = () => {
     if (profileType === "estudante") {
       return [
-        "Dashboard",
-        "Grade",
-        "Projetos",
-        "Eventos",
-        "Professores",
-        "Assistente",
+        { name: "Dashboard", route: "/dashboard-estudante" },
+        { name: "Grade", route: "/grade-curricular" },
+        { name: "Projetos", route: "/projects" },
+        { name: "Eventos", route: "/events" },
+        { name: "Professores", route: "/professors" },
+        { name: "Assistente", route: "/assistant" },
       ];
     }
     if (profileType === "professor") {
-      return ["Dashboard", "Grade", "Projetos", "Recomendações IA"];
+      return [
+        { name: "Dashboard", route: "/dashboard" },
+      ];
     }
     if (profileType === "admin") {
-      return ["Dashboard", "Gerenciar Turmas", "Relatórios"];
+      return [
+        { name: "Dashboard", route: "/dashboard" },
+      ];
     }
-    return ["Dashboard"];
+    return [{ name: "Dashboard", route: "/dashboard" }];
   };
 
   const handleLogout = async () => {
@@ -67,9 +72,7 @@ export default function Header({ onLogout }: HeaderProps) {
           <div className="w-10 h-10 bg-green-700 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-lg">SA</span>
           </div>
-          <span className="text-lg font-medium text-gray-800">
-            Sistema Acadêmico
-          </span>
+          <span className="text-lg font-medium text-gray-800">Sistema Acadêmico</span>
         </div>
 
         <div className="flex items-center gap-3">
@@ -95,20 +98,21 @@ export default function Header({ onLogout }: HeaderProps) {
 
       <nav className="flex gap-8 px-6 border-t-4 border-t-green-700 border-b border-b-gray-200 w-full">
         {getNavOptions().map((option, index) => (
-          <button
+          <Link
             key={index}
-            onClick={() => setActiveTab(option)}
+            to={option.route} // Navegar para a rota com o Link
+            onClick={() => setActiveTab(option.name)} // Atualiza a aba ativa
             className={`relative py-3 text-sm font-medium transition-colors ${
-              activeTab === option
+              activeTab === option.name
                 ? "text-green-700"
                 : "text-gray-600 hover:text-gray-900"
             }`}
           >
-            {option}
-            {activeTab === option && (
+            {option.name}
+            {activeTab === option.name && (
               <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-700" />
             )}
-          </button>
+          </Link>
         ))}
       </nav>
     </div>

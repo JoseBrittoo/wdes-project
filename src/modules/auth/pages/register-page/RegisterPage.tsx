@@ -11,10 +11,11 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
-      });
+      const { data: signUpData, error: signUpError } =
+        await supabase.auth.signUp({
+          email: data.email,
+          password: data.password,
+        });
 
       if (signUpError) {
         throw signUpError;
@@ -22,23 +23,21 @@ export default function RegisterPage() {
 
       const user = signUpData.user;
 
-      const { error: profileError } = await supabase
-        .from("profiles")
-        .insert([
-          {
-            id: user?.id, 
-            name: data.name,
-            email: data.email,
-            matricula: data.matricula,
-            course: data.course,
-            profile: data.profile,
-            is_cotista: data.isCotista,
-            cota: data.cota || null,
-            is_pcd: data.isPcD,
-            deficiencia: data.deficiencia || null,
-            created_at: new Date(),
-          },
-        ]);
+      const { error: profileError } = await supabase.from("profiles").insert([
+        {
+          id: user?.id,
+          name: data.name,
+          email: data.email,
+          matricula: data.matricula,
+          course: data.course,
+          profile: data.profile,
+          is_cotista: data.isCotista,
+          cota: data.cota || null,
+          is_pcd: data.isPcD,
+          deficiencia: data.deficiencia || null,
+          created_at: new Date(),
+        },
+      ]);
 
       if (profileError) {
         throw profileError;
@@ -46,7 +45,6 @@ export default function RegisterPage() {
 
       alert("Conta criada com sucesso! Verifique seu e-mail para confirmar.");
       navigate("/");
-
     } catch (error: any) {
       console.error("Erro no registro:", error.message);
       alert("Erro ao registrar: " + error.message);
@@ -65,7 +63,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <RegisterForm onSubmit={handleRegisterSubmit} />
+        <RegisterForm onSubmit={handleRegisterSubmit} disabled={loading} />
       </div>
     </div>
   );

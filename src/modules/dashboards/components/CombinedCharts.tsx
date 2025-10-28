@@ -48,7 +48,27 @@ const lineChartData = {
   ],
 };
 
-const options: ChartOptions<'line'> = {
+const barOptions: ChartOptions<'bar'> = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+    tooltip: {
+      callbacks: {
+        label: (context) => `Valor: ${context.raw}`,
+      },
+    },
+  },
+  scales: {
+    y: {
+      min: 0,
+      max: 10,
+    },
+  },
+};
+
+const lineOptions: ChartOptions<'line'> = {
   responsive: true,
   plugins: {
     legend: {
@@ -69,12 +89,16 @@ const options: ChartOptions<'line'> = {
 };
 
 const CombinedCharts = () => {
-  const chartRef = useRef<any>(null);
+  const barChartRef = useRef<any>(null);
+  const lineChartRef = useRef<any>(null);
 
   useEffect(() => {
     return () => {
-      if (chartRef.current) {
-        chartRef.current.chartInstance?.destroy();
+      if (barChartRef.current) {
+        barChartRef.current.chartInstance?.destroy();
+      }
+      if (lineChartRef.current) {
+        lineChartRef.current.chartInstance?.destroy();
       }
     };
   }, []);
@@ -86,7 +110,7 @@ const CombinedCharts = () => {
           <h3 className="text-lg font-medium">Desempenho por Disciplina</h3>
         </div>
         <div className="p-6">
-          <Bar ref={chartRef} data={barChartData} options={options} />
+          <Bar ref={barChartRef} data={barChartData} options={barOptions} />
         </div>
       </div>
 
@@ -95,7 +119,7 @@ const CombinedCharts = () => {
           <h3 className="text-lg font-medium">Média de Notas por Semestre</h3>
         </div>
         <div className="p-6">
-          <Line ref={chartRef} data={lineChartData} options={options} />
+          <Line ref={lineChartRef} data={lineChartData} options={lineOptions} />
         </div>
       </div>
     </div>
