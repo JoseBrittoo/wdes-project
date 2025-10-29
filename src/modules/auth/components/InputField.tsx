@@ -25,7 +25,7 @@ export default function InputField({
     <div>
       <label
         htmlFor={id}
-        className="block text-sm font-semibold text-gray-700 mb-2 text-left"
+        className="block text-sm font-semibold text-[#032912] mb-2 text-left"
       >
         {label}
       </label>

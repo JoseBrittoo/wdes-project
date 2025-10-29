@@ -145,7 +145,7 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
         <div>
           <label
             htmlFor="course"
-            className="block text-sm font-semibold text-gray-700 mb-2"
+            className="block text-sm font-semibold text-[#032912] mb-2"
           >
             Curso
           </label>
@@ -178,7 +178,7 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
               checked={isCotista}
               onChange={(e) => setIsCotista(e.target.checked)}
             />
-            <span className="text-sm font-semibold text-gray-700">
+            <span className="text-sm font-semibold text-[#032912]">
               Sou cotista
             </span>
           </label>
@@ -201,7 +201,7 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
               checked={isPcD}
               onChange={(e) => setIsPcD(e.target.checked)}
             />
-            <span className="text-sm font-semibold text-gray-700">
+            <span className="text-sm font-semibold text-[#032912]">
               Sou PcD (Pessoa com Deficiência)
             </span>
           </label>
@@ -272,7 +272,7 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
           Já tem uma conta?{" "}
           <button
             onClick={handleGoToLogin}
-            className="text-blue-500 hover:underline"
+            className="text-[#032912] hover:underline"
           >
             Faça login aqui.
           </button>

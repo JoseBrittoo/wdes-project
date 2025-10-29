@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "../../src/lib/supabase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   onLogout?: () => void;
@@ -12,6 +12,7 @@ export default function Header({ onLogout }: HeaderProps) {
   const [userName, setUserName] = useState<string | null>(null);
   const [profileType, setProfileType] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("Dashboard");
+  const navigate = useNavigate(); // Hook para navegação
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -63,15 +64,18 @@ export default function Header({ onLogout }: HeaderProps) {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     if (onLogout) onLogout();
+    navigate("/"); 
   };
 
   return (
     <div className="w-full bg-white">
       <div className="flex justify-between items-center px-6 py-4 w-full">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-green-700 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">SA</span>
-          </div>
+            <img
+            src="./src/assets/logo.png"
+            alt="Logo do site"
+            className="w-10 h-10 rounded-lg"
+            />
           <span className="text-lg font-medium text-gray-800">Sistema Acadêmico</span>
         </div>
 
@@ -100,8 +104,8 @@ export default function Header({ onLogout }: HeaderProps) {
         {getNavOptions().map((option, index) => (
           <Link
             key={index}
-            to={option.route} // Navegar para a rota com o Link
-            onClick={() => setActiveTab(option.name)} // Atualiza a aba ativa
+            to={option.route}
+            onClick={() => setActiveTab(option.name)} 
             className={`relative py-3 text-sm font-medium transition-colors ${
               activeTab === option.name
                 ? "text-green-700"
