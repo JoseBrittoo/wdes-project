@@ -17,6 +17,8 @@ import { supabase } from "./lib/supabase";
 import Header from "./components/Header";
 import ProjetosPage from "./modules/projects/pages/Project";
 import CadastrarProjetoPage from "./modules/projects/pages/ProjectForm";
+import EventList from "./modules/event/pages/EventList";
+import EventForm from "./modules/event/pages/EventForm";
 
 function AppContent() {
   const [profileType, setProfileType] = useState<string | null>(null);
@@ -96,6 +98,8 @@ const getRoutesByProfile = (profileType: string | null) => {
         <Route path="/grade-curricular" element={<GradeCurricularPage />} />
         <Route path="/projetos" element={<ProjetosPage />} />
         <Route path="/projetos/cadastrar" element={<CadastrarProjetoPage />} />
+        <Route path="/eventos" element={<EventList />} />
+        <Route path="/eventos/cadastrar" element={<EventForm />} />
       </>
     );
   }
