@@ -92,6 +92,7 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
       name,
       email,
       matricula,
+      course,
       courseId: selectedCourseId, // envia o ID do curso
       isCotista,
       cota,
