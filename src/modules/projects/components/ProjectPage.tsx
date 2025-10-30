@@ -55,6 +55,6 @@ export const TabsTrigger = ({
   );
 };
 
-export const TabsContent = ({ value, children }: any) => {
+export const TabsContent = ({ children }: any) => {
   return <div>{children}</div>;
 };
