@@ -24,6 +24,7 @@ import EventList from "./modules/event/pages/EventList";
 import EventForm from "./modules/event/pages/EventForm";
 import ChatAI from "./modules/assistent/ChatAI";
 import ProfilePage from "./modules/auth/pages/ProfilePage";
+import TeacherProfilePage from "./modules/professor/ProfessorAluno";
 
 function AppContent() {
   const [profileType, setProfileType] = useState<string | null>(null);
@@ -107,6 +108,7 @@ const getRoutesByProfile = (profileType: string | null) => {
         <Route path="/eventos/cadastrar" element={<EventForm />} />
         <Route path="/assistente" element={<ChatAI />} />
         <Route path="/perfil" element={<ProfilePage />} />
+        <Route path="/professores" element={<TeacherProfilePage />} />
       </>
     );
   }
@@ -114,9 +116,9 @@ const getRoutesByProfile = (profileType: string | null) => {
   if (profileType === "professor") {
     return (
       <>
-         <Route path="/dashboard-professor" element={<DashboardProfessor />} />
-         <Route path="/disciplinas-grade" element={<DisciplinaGrade />} />
-         <Route path="/professores-gestao" element={<Professor />} />
+        <Route path="/dashboard-professor" element={<DashboardProfessor />} />
+        <Route path="/disciplinas-grade" element={<DisciplinaGrade />} />
+        <Route path="/professores-gestao" element={<Professor />} />
         {/* <Route path="/dashboard-professor" element={<DashboardProfessors />} /> */}
         <Route path="/perfil" element={<ProfilePage />} />
       </>
