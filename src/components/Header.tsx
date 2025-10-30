@@ -53,6 +53,7 @@ export default function Header({ onLogout }: HeaderProps) {
         { name: "Dashboard", route: "/dashboard-professor" },
         { name: "Disciplinas & Grade", route: "/disciplinas-grade" },
         { name: "Professores", route: "/professores-gestao" },
+        { name: "Alunos", route: "/estudantes-gestao" },
 
       ];
     }
