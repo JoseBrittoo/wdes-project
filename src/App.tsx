@@ -17,6 +17,11 @@ import GradeCurricularPage from "./modules/grade/pages/GradeCurricularPage";
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import Header from "./components/Header";
+import ProjetosPage from "./modules/projects/pages/Project";
+import CadastrarProjetoPage from "./modules/projects/pages/ProjectForm";
+import EventList from "./modules/event/pages/EventList";
+import EventForm from "./modules/event/pages/EventForm";
+import ChatAI from "./modules/assistent/ChatAI";
 
 function AppContent() {
   const [profileType, setProfileType] = useState<string | null>(null);
@@ -94,6 +99,11 @@ const getRoutesByProfile = (profileType: string | null) => {
       <>
         <Route path="/dashboard-estudante" element={<DashboardStudents />} />
         <Route path="/grade-curricular" element={<GradeCurricularPage />} />
+        <Route path="/projetos" element={<ProjetosPage />} />
+        <Route path="/projetos/cadastrar" element={<CadastrarProjetoPage />} />
+        <Route path="/eventos" element={<EventList />} />
+        <Route path="/eventos/cadastrar" element={<EventForm />} />
+        <Route path="/assistente" element={<ChatAI />} />
       </>
     );
   }
