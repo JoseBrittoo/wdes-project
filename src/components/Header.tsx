@@ -57,9 +57,7 @@ export default function Header({ onLogout }: HeaderProps) {
       ];
     }
     if (profileType === "admin") {
-      return [
-        { name: "Dashboard", route: "/dashboard" },
-      ];
+      return [{ name: "Dashboard", route: "/dashboard" }];
     }
     return [{ name: "Dashboard", route: "/dashboard" }];
   };
@@ -67,19 +65,25 @@ export default function Header({ onLogout }: HeaderProps) {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     if (onLogout) onLogout();
-    navigate("/"); 
+    navigate("/");
+  };
+
+  const goToProfile = () => {
+    navigate("/perfil");
   };
 
   return (
     <div className="w-full bg-white">
       <div className="flex justify-between items-center px-6 py-4 w-full">
         <div className="flex items-center gap-3">
-            <img
+          <img
             src="./src/assets/logo.png"
             alt="Logo do site"
             className="w-10 h-10 rounded-lg"
-            />
-          <span className="text-lg font-medium text-gray-800">Sistema Acadêmico</span>
+          />
+          <span className="text-lg font-medium text-gray-800">
+            Sistema Acadêmico
+          </span>
         </div>
 
         <div className="flex items-center gap-3">
@@ -87,7 +91,10 @@ export default function Header({ onLogout }: HeaderProps) {
             {userName ? `Bem-vindo, ${userName}` : "Carregando..."}
           </span>
           {userName && (
-            <div className="w-9 h-9 bg-green-700 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+            <div
+              onClick={goToProfile}
+              className="w-9 h-9 bg-green-700 text-white rounded-full flex items-center justify-center text-sm font-semibold"
+            >
               {userName
                 .split(" ")
                 .map((n) => n[0])
@@ -108,7 +115,7 @@ export default function Header({ onLogout }: HeaderProps) {
           <Link
             key={index}
             to={option.route}
-            onClick={() => setActiveTab(option.name)} 
+            onClick={() => setActiveTab(option.name)}
             className={`relative py-3 text-sm font-medium transition-colors ${
               activeTab === option.name
                 ? "text-green-700"
