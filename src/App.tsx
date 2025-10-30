@@ -12,6 +12,7 @@ import LoginPage from "./modules/auth/pages/login-page/LoginPage";
 import RegisterPage from "./modules/auth/pages/register-page/RegisterPage";
 import DashboardStudents from "./modules/dashboards/pages/DashboardStudants";
 import DashboardProfessor from "./modules/dashboards/pages/DashboardProfessor";
+import DisciplinaGrade from "./modules/disciplinaGrade/pages/DisciplinaGradePage";
 import GradeCurricularPage from "./modules/grade/pages/GradeCurricularPage";
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
@@ -101,6 +102,7 @@ const getRoutesByProfile = (profileType: string | null) => {
     return (
       <>
          <Route path="/dashboard-professor" element={<DashboardProfessor />} />
+         <Route path="/disciplinas-grade" element={<DisciplinaGrade />} />
       </>
     );
   }

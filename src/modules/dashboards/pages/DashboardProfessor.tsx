@@ -133,7 +133,7 @@ export default function DashboardProfessor() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.id
-                    ? "border-purple-600 text-purple-600"
+                    ? "border-green-600 text-green-600"
                     : "border-transparent text-muted-foreground hover:text-foreground hover:border-gray-300"
                 }`}
               >
