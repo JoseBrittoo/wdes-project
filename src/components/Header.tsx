@@ -49,7 +49,12 @@ export default function Header({ onLogout }: HeaderProps) {
       ];
     }
     if (profileType === "professor") {
-      return [{ name: "Dashboard", route: "/dashboard" }];
+      return [
+        { name: "Dashboard", route: "/dashboard-professor" },
+        { name: "Disciplinas & Grade", route: "/disciplinas-grade" },
+        { name: "Professores", route: "/professores-gestao" },
+
+      ];
     }
     if (profileType === "admin") {
       return [{ name: "Dashboard", route: "/dashboard" }];
