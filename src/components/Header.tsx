@@ -51,7 +51,7 @@ export default function Header({ onLogout }: HeaderProps) {
     if (profileType === "professor") {
       return [
         { name: "Dashboard", route: "/dashboard-professor" },
-        { name: "Disciplinas", route: "/disciplinas-grade" },
+        { name: "Disciplinas & Grade", route: "/disciplinas-grade" },
 
       ];
     }
