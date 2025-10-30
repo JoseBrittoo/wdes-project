@@ -11,6 +11,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import LoginPage from "./modules/auth/pages/login-page/LoginPage";
 import RegisterPage from "./modules/auth/pages/register-page/RegisterPage";
 import DashboardStudents from "./modules/dashboards/pages/DashboardStudants";
+import DashboardProfessor from "./modules/dashboards/pages/DashboardProfessor";
 import GradeCurricularPage from "./modules/grade/pages/GradeCurricularPage";
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
@@ -99,7 +100,7 @@ const getRoutesByProfile = (profileType: string | null) => {
   if (profileType === "professor") {
     return (
       <>
-        {/* <Route path="/dashboard-professor" element={<DashboardProfessors />} /> */}
+         <Route path="/dashboard-professor" element={<DashboardProfessor />} />
       </>
     );
   }

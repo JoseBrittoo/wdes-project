@@ -49,7 +49,7 @@ export default function Header({ onLogout }: HeaderProps) {
     }
     if (profileType === "professor") {
       return [
-        { name: "Dashboard", route: "/dashboard" },
+        { name: "Dashboard", route: "/dashboard-professor" },
       ];
     }
     if (profileType === "admin") {
