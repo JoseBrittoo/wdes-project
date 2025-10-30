@@ -14,6 +14,7 @@ import DashboardStudents from "./modules/dashboards/pages/DashboardStudants";
 import DashboardProfessor from "./modules/dashboards/pages/DashboardProfessor";
 import DisciplinaGrade from "./modules/disciplinaGrade/pages/DisciplinaGradePage";
 import GradeCurricularPage from "./modules/grade/pages/GradeCurricularPage";
+import Professor from "./modules/professor/pages/Professor";
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import Header from "./components/Header";
@@ -113,6 +114,7 @@ const getRoutesByProfile = (profileType: string | null) => {
       <>
          <Route path="/dashboard-professor" element={<DashboardProfessor />} />
          <Route path="/disciplinas-grade" element={<DisciplinaGrade />} />
+         <Route path="/professores-gestao" element={<Professor />} />
       </>
     );
   }
