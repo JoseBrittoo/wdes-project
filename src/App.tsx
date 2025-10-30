@@ -13,6 +13,7 @@ import RegisterPage from "./modules/auth/pages/register-page/RegisterPage";
 import DashboardStudents from "./modules/dashboards/pages/DashboardStudants";
 import DashboardProfessor from "./modules/dashboards/pages/DashboardProfessor";
 import DisciplinaGrade from "./modules/DisciplinaGrade/pages/DisciplinaGradePage";
+import Studants from "./modules/studants/pages/Studants";
 import GradeCurricularPage from "./modules/grade/pages/GradeCurricularPage";
 import Professor from "./modules/professor/pages/Professor";
 import { useEffect, useState } from "react";
@@ -116,10 +117,10 @@ const getRoutesByProfile = (profileType: string | null) => {
   if (profileType === "professor") {
     return (
       <>
-        <Route path="/dashboard-professor" element={<DashboardProfessor />} />
-        <Route path="/disciplinas-grade" element={<DisciplinaGrade />} />
-        <Route path="/professores-gestao" element={<Professor />} />
-        {/* <Route path="/dashboard-professor" element={<DashboardProfessors />} /> */}
+         <Route path="/dashboard-professor" element={<DashboardProfessor />} />
+         <Route path="/disciplinas-grade" element={<DisciplinaGrade />} />
+         <Route path="/professores-gestao" element={<Professor />} />
+         <Route path="/estudantes-gestao" element={<Studants />} /> 
         <Route path="/perfil" element={<ProfilePage />} />
       </>
     );
