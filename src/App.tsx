@@ -72,7 +72,10 @@ function AppContent() {
             )
           }
         />
-        {getRoutesByProfile(profileType)}
+        {/* ✅ Renderiza as rotas baseadas no perfil */}
+        {getRoutesByProfile(profileType).map((route, index) => (
+          <Route key={index} path={route.path} element={route.element} />
+        ))}
       </Routes>
       <ToastContainer
         theme="light"
@@ -99,42 +102,35 @@ function App() {
 
 const getRoutesByProfile = (profileType: string | null) => {
   if (profileType === "estudante") {
-    return (
-      <>
-        <Route path="/dashboard-estudante" element={<DashboardStudents />} />
-        <Route path="/grade-curricular" element={<GradeCurricularPage />} />
-        <Route path="/projetos" element={<ProjetosPage />} />
-        <Route path="/projetos/cadastrar" element={<CadastrarProjetoPage />} />
-        <Route path="/eventos" element={<EventList />} />
-        <Route path="/eventos/cadastrar" element={<EventForm />} />
-        <Route path="/assistente" element={<ChatAI />} />
-        <Route path="/perfil" element={<ProfilePage />} />
-        <Route path="/professores" element={<TeacherProfilePage />} />
-      </>
-    );
+    return [
+      { path: "/dashboard-estudante", element: <DashboardStudents /> },
+      { path: "/grade-curricular", element: <GradeCurricularPage /> },
+      { path: "/projetos", element: <ProjetosPage /> },
+      { path: "/projetos/cadastrar", element: <CadastrarProjetoPage /> },
+      { path: "/eventos", element: <EventList /> },
+      { path: "/eventos/cadastrar", element: <EventForm /> },
+      { path: "/assistente", element: <ChatAI /> },
+      { path: "/perfil", element: <ProfilePage /> },
+      { path: "/professores", element: <TeacherProfilePage /> },
+    ];
   }
 
   if (profileType === "professor") {
-    return (
-      <>
-         <Route path="/dashboard-professor" element={<DashboardProfessor />} />
-         <Route path="/disciplinas-grade" element={<DisciplinaGrade />} />
-         <Route path="/professores-gestao" element={<Professor />} />
-         <Route path="/estudantes-gestao" element={<Studants />} /> 
-        <Route path="/perfil" element={<ProfilePage />} />
-      </>
-    );
+    return [
+      { path: "/dashboard-professor", element: <DashboardProfessor /> },
+      { path: "/disciplinas-grade", element: <DisciplinaGrade /> },
+      { path: "/professores-gestao", element: <Professor /> },
+      { path: "/estudantes-gestao", element: <Studants /> },
+      { path: "/perfil", element: <ProfilePage /> },
+    ];
   }
 
   if (profileType === "admin") {
-    return (
-      <>
-        {/* <Route path="/dashboard-admin" element={<DashboardAdmin />} /> */}
-      </>
-    );
+    return [
+      // { path: "/dashboard-admin", element: <DashboardAdmin /> },
+    ];
   }
 
-  return null;
+  return [];
 };
-
 export default App;
