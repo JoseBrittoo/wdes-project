@@ -12,7 +12,7 @@ import LoginPage from "./modules/auth/pages/login-page/LoginPage";
 import RegisterPage from "./modules/auth/pages/register-page/RegisterPage";
 import DashboardStudents from "./modules/dashboards/pages/DashboardStudants";
 import DashboardProfessor from "./modules/dashboards/pages/DashboardProfessor";
-import DisciplinaGrade from "./modules/disciplinaGrade/pages/DisciplinaGradePage";
+import DisciplinaGrade from "./modules/DisciplinaGrade/pages/DisciplinaGradePage";
 import Studants from "./modules/studants/pages/Studants";
 import GradeCurricularPage from "./modules/grade/pages/GradeCurricularPage";
 import Professor from "./modules/professor/pages/Professor";
