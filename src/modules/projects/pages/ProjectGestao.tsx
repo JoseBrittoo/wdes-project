@@ -1,11 +1,7 @@
-"use client"
-
-import { Card, CardContent } from "@/components/ui/card"
-import { Plus } from "lucide-react"
-import { ProjectCard } from "../components/ProjectCard"
+import { ProjectCardCoord } from "../components/ProjectCardCoord"
 import { ProjectStats } from "../components/ProjectStats"
 
-export default function ProjetosPage() {
+export default function ProjectGestao() {
   const projetos = [
     {
       titulo: "Sistema de Gestão Acadêmica",
@@ -46,81 +42,78 @@ export default function ProjetosPage() {
   ]
 
   const handleNovoProjeto = () => {
-    console.log("[v0] Criar novo projeto")
+    console.log("Criar novo projeto")
   }
 
   const handleVerDetalhes = (projeto: any) => {
-    console.log("[v0] Ver detalhes:", projeto)
+    console.log("Ver detalhes:", projeto)
   }
 
   const handleEditar = (projeto: any) => {
-    console.log("[v0] Editar projeto:", projeto)
+    console.log("Editar projeto:", projeto)
   }
 
   const handleAprovar = (projeto: any) => {
-    console.log("[v0] Aprovar projeto:", projeto)
+    console.log("Aprovar projeto:", projeto)
   }
 
   const handleRejeitar = (projeto: any) => {
-    console.log("[v0] Rejeitar projeto:", projeto)
+    console.log("Rejeitar projeto:", projeto)
   }
 
   const handleVerRelatorio = (projeto: any) => {
-    console.log("[v0] Ver relatório:", projeto)
+    console.log("Ver relatório:", projeto)
   }
 
   const handleRelatorioGeral = () => {
-    console.log("[v0] Gerar relatório geral de projetos")
+    console.log("Gerar relatório geral de projetos")
   }
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <main className="container mx-auto px-6 py-8">
-        <h2 className="text-2xl font-bold text-foreground mb-8">Gestão de Projetos</h2>
+      <div className="container mx-auto px-6 py-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8">Gestão de Projetos</h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Projetos Ativos */}
           <div className="lg:col-span-2">
-            <Card>
+            <div className="bg-white rounded-lg shadow">
               <div className="flex items-center justify-between px-6 py-4 border-b">
-                <h3 className="text-lg font-semibold text-foreground">Projetos Ativos</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Projetos Ativos</h3>
                 <button
                   onClick={handleNovoProjeto}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-colors text-sm flex items-center gap-2"
                 >
-                  <Plus size={16} />
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
                   Novo Projeto
                 </button>
               </div>
-              <CardContent className="p-6">
-                {projetos.map((projeto, index) => (
-                  <ProjectCard
-                    key={index}
-                    title={projeto.titulo}
-                    type={projeto.tipo}
-                    professor={projeto.professor}
-                    description={projeto.descricao}
-                    participants={projeto.participantes}
-                    deadline={projeto.prazo}
-                    concluded={projeto.concluido}
-                    status={projeto.status}
-                    progress={projeto.progresso}
-                    onViewDetails={() => handleVerDetalhes(projeto)}
-                    onEdit={() => handleEditar(projeto)}
-                    onApprove={() => handleAprovar(projeto)}
-                    onReject={() => handleRejeitar(projeto)}
-                    onViewReport={() => handleVerRelatorio(projeto)}
-                  />
-                ))}
-              </CardContent>
-            </Card>
+              <div className="p-6">
+                <div className="space-y-6">
+                  {projetos.map((projeto, index) => (
+                    <ProjectCardCoord
+                      key={index}
+                      project={projeto}
+                      onViewDetails={() => handleVerDetalhes(projeto)}
+                      onEdit={() => handleEditar(projeto)}
+                      onApprove={() => handleAprovar(projeto)}
+                      onReject={() => handleRejeitar(projeto)}
+                      onViewReport={() => handleVerRelatorio(projeto)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
+          {/* Estatísticas */}
           <div>
             <ProjectStats stats={stats} onGenerateReport={handleRelatorioGeral} />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   )
 }
