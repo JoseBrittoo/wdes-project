@@ -117,16 +117,14 @@ const getRoutesByProfile = (profileType: string | null) => {
   }
 
   if (profileType === "professor") {
-    return (
-      <>
-         <Route path="/dashboard-professor" element={<DashboardProfessor />} />
-         <Route path="/disciplinas-grade" element={<DisciplinaGrade />} />
-         <Route path="/professores-gestao" element={<Professor />} />
-         <Route path="/estudantes-gestao" element={<Studants />} /> 
-         <Route path="/projetos-gestao" element={<ProjectGestao />} />
-         <Route path="/perfil" element={<ProfilePage />} />
-      </>
-    );
+    return [
+      { path: "/dashboard-professor", element: <DashboardProfessor />},
+      { path: "/disciplinas-grade", element: <DisciplinaGrade />},
+      { path: "/professores-gestao", element: <Professor />} ,
+      { path: "/estudantes-gestao", element: <Studants />} ,
+      { path: "/projetos-gestao", element: <ProjectGestao />} ,
+      { path: "/perfil", element: <ProfilePage />} ,
+    ];
   }
 
   if (profileType === "admin") {
@@ -137,6 +135,6 @@ const getRoutesByProfile = (profileType: string | null) => {
     );
   }
 
-  return null;
+  return [];
 };
 export default App;
