@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabase";
-import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 
 interface Profile {
@@ -23,7 +22,6 @@ interface Profile {
 
 const TeacherProfilePage = () => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
-  const navigate = useNavigate();
 
   const courseNameMap: Record<string, string> = {
     licenciatura_computacao: "Licenciatura em Computação",
