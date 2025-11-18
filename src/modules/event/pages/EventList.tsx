@@ -39,7 +39,7 @@ export default function EventList() {
                 key={event.id}
                 className="bg-white p-6 rounded-lg shadow-md flex flex-col"
               >
-                <div className="flex justify-center items-center h-40 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg mb-4">
+                <div className="flex justify-center items-center h-40 bg-gradient-to-br from-[#E2e0af] to-[#E2e0af] rounded-lg mb-4">
                   <span className="text-6xl">🎉</span>
                 </div>
 

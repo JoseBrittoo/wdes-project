@@ -84,7 +84,7 @@ export default function Header({ onLogout }: HeaderProps) {
             className="w-10 h-10 rounded-lg"
           />
           <span className="text-lg font-medium text-gray-800">
-            Sistema Acadêmico
+            SaberUni
           </span>
         </div>
 
