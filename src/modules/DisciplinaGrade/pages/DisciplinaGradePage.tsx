@@ -1,11 +1,14 @@
-"use client";
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DisciplinasTable from "./../components/DisciplinasTable";
 import GradeCurricularCard from "./../components/GradeCurricularCard";
 import ScheduleGrid from "./../components/ScheduleGrid";
 
+
 export default function DisciplinaGradePage() {
-  const disciplinas = [
+  const navigate = useNavigate();
+
+  const [disciplinas, setDisciplinas] = useState([
     {
       nome: "Algoritmos e Estruturas de Dados",
       creditos: 4,
@@ -30,8 +33,7 @@ export default function DisciplinaGradePage() {
       periodo: "5º",
       status: "Ativa" as const,
     },
-  ];
-
+  ]);
   const schedule = [
     {
       day: "Segunda-feira",
@@ -57,24 +59,8 @@ export default function DisciplinaGradePage() {
     },
   ];
 
-  const handleEdit = (disciplina: any) => {
-    console.log("[v0] Editar disciplina:", disciplina);
-  };
-
-  const handleEmenta = (disciplina: any) => {
-    console.log("[v0] Ver ementa:", disciplina);
-  };
-
-  const handleExportar = () => {
-    console.log("[v0] Exportar grade");
-  };
-
-  const handleGerenciar = () => {
-    console.log("[v0] Gerenciar horários");
-  };
-
   const handleNovaDisciplina = () => {
-    console.log("[v0] Nova disciplina");
+    navigate("/professor/adicionar-disciplina");
   };
 
   return (
@@ -84,9 +70,7 @@ export default function DisciplinaGradePage() {
           Gestão de Disciplinas e Grade Curricular
         </h2>
 
-        {/* Disciplinas e Grade Curricular */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Disciplinas do Curso */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm border">
               <div className="flex items-center justify-between px-6 py-4 border-b">
@@ -100,29 +84,28 @@ export default function DisciplinaGradePage() {
                   + Nova Disciplina
                 </button>
               </div>
+
               <div className="p-6">
                 <DisciplinasTable
                   disciplinas={disciplinas}
-                  onEdit={handleEdit}
-                  onEmenta={handleEmenta}
+                  onEdit={(d) => console.log("Editar:", d)}
+                  onEmenta={(d) => console.log("Ementa:", d)}
                 />
               </div>
             </div>
           </div>
 
-          {/* Grade Curricular */}
           <div>
             <GradeCurricularCard
               cargaHorariaTotal="3.200h"
               disciplinasObrigatorias={32}
               disciplinasOptativas={13}
-              onExportar={handleExportar}
+              onExportar={() => console.log("Exportar")}
             />
           </div>
         </div>
 
-        {/* Gestão de Horários */}
-        <ScheduleGrid schedule={schedule} onGerenciar={handleGerenciar} />
+        <ScheduleGrid schedule={schedule} onGerenciar={() => console.log("Gerenciar horários")} />
       </main>
     </div>
   );
