@@ -16,7 +16,7 @@ export async function getCourseSubjects(courseId: number) {
       `
       semester,
       prerequisites,
-      subjects (
+      subjects!course_subjects_subject_id_fkey (
         id,
         name,
         credits,

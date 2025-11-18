@@ -14,7 +14,6 @@ export default function GradeCurricularPage() {
   useEffect(() => {
     async function fetchUserCourse() {
       try {
-        // Buscar usuário logado
         const {
           data: { user },
         } = await supabase.auth.getUser();
@@ -24,7 +23,6 @@ export default function GradeCurricularPage() {
           return;
         }
 
-        // Buscar curso do usuário (ajuste o nome da tabela e campos conforme seu schema)
         const { data: userData } = await supabase
           .from("profiles")
           .select("course_id, courses(id, name, coordinator)")
